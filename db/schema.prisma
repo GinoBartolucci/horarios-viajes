@@ -1,0 +1,54 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Empresa {
+  id     Int     @id @default(autoincrement())
+  nombre String
+  Viaje  Tramo[]
+}
+
+model Parada {
+  id       Int     @id @default(autoincrement())
+  nombre   String
+  Llegadas Tramo[] @relation(name: "LlegadasTramo")
+  Salidas  Tramo[] @relation(name: "SalidasTramo")
+}
+
+model Dias {
+  id         Int          @id @default(autoincrement())
+  nombre     String
+  DiasTramos DiasTramos[]
+}
+
+model Tramo {
+  id          Int          @id @default(autoincrement())
+  salida      Parada       @relation(fields: [salidaId], references: [id], name: "SalidasTramo")
+  salidaId    Int
+  horaSalida  DateTime
+  llegada     Parada       @relation(fields: [llegadaId], references: [id], name: "LlegadasTramo")
+  llegadaId   Int
+  horaLlegada DateTime
+  DiasTramos  DiasTramos[]
+  Empresa     Empresa?     @relation(fields: [empresaId], references: [id])
+  empresaId   Int?
+}
+
+model DiasTramos {
+  dia      Dias     @relation(fields: [diaId], references: [id])
+  diaId    Int
+  tramo    Tramo    @relation(fields: [tramoId], references: [id])
+  tramoId  Int
+  hora     DateTime
+  duracion Int
+
+  @@id([diaId, tramoId])
+}
