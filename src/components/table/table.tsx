@@ -12,28 +12,28 @@ export default async function Table(props: Props) {
   const dias = await prisma.dias.findMany({
     select: {
       id: true,
-      name: true,
+      nombre: true,
     },
   });
-  dias.unshift({ id: 0, name: "Horario" });
+  dias.unshift({ id: 0, nombre: "Horario" });
 
   const empresa = await prisma.empresa.findUnique({
     where: { id: 1 },
     select: {
       id: true,
-      name: true,
+      nombre: true,
     },
   });
   return (
     <main className="flex flex-col justify-center items-center pt-8 overflow-x-auto">
       <table className="text-center text-gray-500 dark:text-gray-400 table-auto ">
         <caption className="p-5 text-3xl font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-          {empresa && empresa.name}
+          {empresa && empresa.nombre}
         </caption>  
       <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             {dias.map((header) => {
-              return (<Header key={header.id} text={header.name} />)
+              return (<Header key={header.id} text={header.nombre} />)
               })
             }
           </tr>
