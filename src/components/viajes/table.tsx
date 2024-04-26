@@ -1,5 +1,4 @@
-import Header from "@/components/table/header";
-import { Horario } from "@/types";
+import Header from "@/components/viajes/header";
 import Row from "./row";
 import prisma from "../../lib/prisma";
 interface Props {
@@ -29,12 +28,12 @@ export default async function Table(props: Props) {
       <table className="text-center text-gray-500 dark:text-gray-400 table-auto ">
         <caption className="p-5 text-3xl font-semibold text-gray-900 bg-white dark:text-white dark:bg-gray-800">
           {empresa && empresa.nombre}
-        </caption>  
-      <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        </caption>
+        <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             {dias.map((header) => {
               return (<Header key={header.id} text={header.nombre} />)
-              })
+            })
             }
           </tr>
         </thead>

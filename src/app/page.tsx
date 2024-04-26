@@ -1,9 +1,9 @@
-import Table from "@/components/table/table";
+import ViajesTable from "@/components/viajes/table";
 
 export default async function Home() {
   return (
     <main>
-      <Table id_empresa={0} id_partida={0} id_destino={0}  />
+      <ViajesTable id_empresa={0} id_partida={0} id_destino={0} />
     </main>
   );
 }

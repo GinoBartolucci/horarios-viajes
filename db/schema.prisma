@@ -38,7 +38,7 @@ model Tramo {
   llegadaId   Int
   horaLlegada DateTime
   DiasTramos  DiasTramos[]
-  Empresa     Empresa?     @relation(fields: [empresaId], references: [id])
+  empresa     Empresa?     @relation(fields: [empresaId], references: [id])
   empresaId   Int?
 }
 
